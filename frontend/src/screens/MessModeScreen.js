@@ -35,7 +35,11 @@ export default function MessModeScreen() {
     Alert.alert("Mess meal logged", meal.name);
   }
 
-  const filtered = meals.filter((meal) => meal.dayOfWeek === dayOfWeek && meal.mealType === mealType);
+  const filtered = meals.filter((meal) => {
+    const normalizedName = meal.name.toLowerCase();
+    const matchesDay = meal.dayOfWeek === dayOfWeek || normalizedName.startsWith(dayOfWeek);
+    return matchesDay && meal.mealType === mealType;
+  });
 
   return (
     <Screen title="SRM Mess Mode" subtitle="Weekly hostel menu w.e.f. 23.03.2026 with one-tap macro logging.">

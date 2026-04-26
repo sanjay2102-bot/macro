@@ -42,6 +42,7 @@ router.post(
 messMealRouter.get(
   "/",
   asyncHandler(async (_req, res) => {
+    res.set("Cache-Control", "no-store");
     const meals = await MessMeal.find().populate("items.food").sort({ dayOfWeek: 1, mealType: 1, name: 1 });
     res.json({ meals });
   })
