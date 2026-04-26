@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "MacroHostel India",
+    "slug": "macrohostel-india",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "macrohostel",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#F7F8F3"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F7F8F3"
+      }
+    }
+  }
+}
+
