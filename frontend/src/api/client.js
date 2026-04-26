@@ -15,6 +15,9 @@ async function request(path, options = {}) {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: "Request failed" }));
+    if (response.status === 401) {
+      await AsyncStorage.removeItem("token");
+    }
     throw new Error(error.message);
   }
 
@@ -37,4 +40,3 @@ export const api = {
   calculateGoal: (payload) => request("/goals/calculate", { method: "POST", body: JSON.stringify(payload) }),
   assistant: (content) => request("/assistant/messages", { method: "POST", body: JSON.stringify({ content }) })
 };
-

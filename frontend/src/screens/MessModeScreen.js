@@ -17,11 +17,18 @@ function currentDay() {
 
 export default function MessModeScreen() {
   const [meals, setMeals] = useState([]);
+  const [error, setError] = useState("");
   const [dayOfWeek, setDayOfWeek] = useState(currentDay());
   const [mealType, setMealType] = useState("lunch");
 
   useEffect(() => {
-    api.messMeals().then(({ meals: result }) => setMeals(result)).catch(() => {});
+    api
+      .messMeals()
+      .then(({ meals: result }) => {
+        setMeals(result);
+        setError("");
+      })
+      .catch((err) => setError(err.message));
   }, []);
 
   async function addMeal(meal) {
@@ -57,6 +64,7 @@ export default function MessModeScreen() {
           </Pressable>
         ))}
       </View>
+      {error ? <Text style={styles.error}>{error}. Refresh and log in again.</Text> : null}
       {filtered.map((meal) => {
         const totals = meal.items.reduce(
           (sum, item) => ({
@@ -114,5 +122,6 @@ const styles = StyleSheet.create({
   footer: { gap: spacing.md, marginTop: spacing.md },
   macro: { color: colors.green, fontWeight: "900" },
   button: { alignSelf: "stretch" },
-  empty: { color: colors.muted }
+  empty: { color: colors.muted },
+  error: { color: colors.red, fontWeight: "800", marginBottom: spacing.md }
 });
